@@ -1,15 +1,29 @@
 <idea-plugin version="2">
   <id>com.ryan.MvpClassesGenerator</id>
   <name>Mvp Classes Generator</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="fengxidadi@gmail.com" url="https://github.com/TheseYears/MvpClassesGenerator">YourCompany</vendor>
 
   <description><![CDATA[
-      一键生成Mvp类 - Activity/Fragment/View/Presenter. <BR/>
-      配合<em>Corelibs</em>一起食用味道最佳.
+      一键生成Mvp类 for Android - Activity/Fragment/View/Presenter. <BR/>
+      配合<em>Corelibs</em>一起食用味道最佳. <BR/>
+      参考 https://theseyears.gitbooks.io/android-architecture-journey/content/mvp_generator.html
     ]]></description>
 
   <change-notes><![CDATA[
+  <html>
+
+  <b>1.1</b>
+  <ul>
+    <li>Enable plugin in all products</li>
+  </ul>
+
+  <b>1.0</b>
+  <ul>
+    <li>Initial release</li>
+  </ul>
+
+  <html/>
     ]]>
   </change-notes>
 
@@ -18,9 +32,7 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
 
   <actions>
     <!-- Add your actions here -->
