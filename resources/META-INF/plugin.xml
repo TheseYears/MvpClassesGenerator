@@ -1,0 +1,38 @@
+<idea-plugin version="2">
+  <id>com.ryan.MvpClassesGenerator</id>
+  <name>Mvp Classes Generator</name>
+  <version>1.0</version>
+  <vendor email="fengxidadi@gmail.com" url="https://github.com/TheseYears/MvpClassesGenerator">YourCompany</vendor>
+
+  <description><![CDATA[
+      一键生成Mvp类 - Activity/Fragment/View/Presenter. <BR/>
+      配合<em>Corelibs</em>一起食用味道最佳.
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="MvpClassesGenerator.GeneratorAction" class="GeneratorAction" text="Generator Mvp Classes"
+            description="Generator the Mvp Classes for Corelibs">
+      <add-to-group group-id="EditMenu" anchor="first"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl G"/>
+    </action>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationConfigurable instance="Settings" />
+  </extensions>
+
+</idea-plugin>
