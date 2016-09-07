@@ -200,7 +200,7 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
             builder.append(" extends BasePresenter<");
         builder.append(fileName);
         builder.append(TYPE_VIEW);
-        builder.append("> {\n\n");
+        builder.append("> {\n");
 
         builder.append("\n");
         builder.append("    @Override public void onStart() {\n");
