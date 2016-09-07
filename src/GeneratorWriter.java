@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * 文件Writer, 根据设置里的常量在指定的包下生成类文件.
+ * Created by Ryan on 2016/9/6.
+ */
 public class GeneratorWriter extends WriteCommandAction.Simple {
 
     private static final String FILE_TYPE = ".java";
@@ -13,9 +17,14 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
     private static final String TYPE_VIEW = "View";
     private static final String TYPE_PRESENTER = "Presenter";
 
-    private String fileName, subViewPackage;
+    private String fileName;
+    /** Activity/Fragment所在的包名 **/
+    private String subViewPackage;
     private Project mProject;
-    private boolean fragment, paging;
+    /** 是否是Fragment **/
+    private boolean fragment;
+    /** 是否是分页 **/
+    private boolean paging;
 
     GeneratorWriter(Project project, String fileName, String subViewPackage, boolean fragment, boolean paging) {
         super(project, "Generate Mvp Classes");
@@ -36,9 +45,13 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
             addToSvn(writeFile(fileName, TYPE_ACTIVITY, Constant.getViewPackage() + "." + subViewPackage, buildActivityOrFragmentContent()));
         addToSvn(writeFile(fileName, TYPE_PRESENTER, Constant.getPresenterPackage(), buildPresenterContent()));
 
+        // 刷新视图树
         mProject.getBaseDir().refresh(false, true);
     }
 
+    /**
+     * 添加文件至svn, 公司原因使用svn管理
+     */
     private void addToSvn(File file) {
         if (file == null) return;
         try {
@@ -48,6 +61,11 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         }
     }
 
+    /**
+     * 根据包名生成相应的文件夹, 如C:\IdeaProjects\MvpClassesGenerator\app\src\main\java
+     * @param subPackage 子包, 会在android源代码目录下继续生成指定的文件夹
+     * @return 生成的文件夹路径
+     */
     private String createPackage(String subPackage) {
         String src = mProject.getPresentableUrl() + File.separator + Constant.getMainModuleName()
                 + File.separator + "src" + File.separator + "main" + File.separator + "java";
@@ -71,6 +89,13 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         return rlt ? src : null;
     }
 
+    /**
+     * 根据条件生成java文件
+     * @param name 文件名
+     * @param type 文件类型
+     * @param subPackage 指定的子包, 会调用{@link #createPackage}生成相应文件夹
+     * @return 生成的文件File对象
+     */
     private File createFile(String name, String type, String subPackage) throws IOException {
         String root = createPackage(subPackage);
         if (root == null) return null;
@@ -83,6 +108,9 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         return rlt ? file : null;
     }
 
+    /**
+     * 写入文件, 会调用{@link #createFile}生成文件再写入
+     */
     private File writeFile(String name, String type, String subPackage, String content) throws IOException {
         File file = createFile(name, type, subPackage);
         if (file == null) return null;
@@ -95,6 +123,9 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         return file;
     }
 
+    /**
+     * 拼接View的内容
+     */
     private String buildViewContent() {
         String sPackage = Constant.getProjectPackage() + "." + Constant.getViewInterfacePackage();
 
@@ -116,6 +147,9 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         return builder.toString();
     }
 
+    /**
+     * 拼接Activity/Fragment的内容
+     */
     private String buildActivityOrFragmentContent() {
         String sPackage = Constant.getProjectPackage() + "." + Constant.getViewPackage() + "." + subViewPackage;
 
@@ -182,6 +216,9 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         return builder.toString();
     }
 
+    /**
+     * 拼接Presenter的内容
+     */
     private String buildPresenterContent() {
         String sPackage = Constant.getProjectPackage() + "." + Constant.getPresenterPackage();
 

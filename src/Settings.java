@@ -6,6 +6,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * 设置菜单
+ */
 public class Settings implements Configurable {
 
     public static final String PROJECT_PACKAGE = "mvpclassesgenerator_project_package";
@@ -59,7 +62,6 @@ public class Settings implements Configurable {
 
     @Override
     public void reset() {
-        System.out.print("reset");
         f_project_package.setText(Constant.getProjectPackage());
         f_corelibs_package.setText(Constant.getCorelibsPackage());
         f_view_package.setText(Constant.getViewPackage());

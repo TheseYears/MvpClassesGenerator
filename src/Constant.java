@@ -1,5 +1,9 @@
 import com.intellij.ide.util.PropertiesComponent;
 
+/**
+ * 设置中的一些常量
+ * Created by Ryan on 2016/9/6.
+ */
 public class Constant {
     public static final String DEFAULT_PROJECT_PACKAGE = "com.bm";
     public static final String DEFAULT_CORELIBS_PACKAGE = "com.corelibs.base";
