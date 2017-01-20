@@ -16,6 +16,7 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
     private static final String TYPE_FRAGMENT = "Fragment";
     private static final String TYPE_VIEW = "View";
     private static final String TYPE_PRESENTER = "Presenter";
+    private static final String CORELIBS_BASE_PACKAGE = ".base";
 
     private String fileName;
     /** Activity/Fragment所在的包名 **/
@@ -131,7 +132,8 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
 
         StringBuilder builder = new StringBuilder();
         builder.append(generatePackageCode(sPackage));
-        builder.append(generateImportCode(Constant.getCorelibsPackage(), paging ? "BasePaginationView" : "BaseView"));
+        builder.append(generateImportCode(Constant.getCorelibsPackage() + CORELIBS_BASE_PACKAGE,
+                paging ? "BasePaginationView" : "BaseView"));
         builder.append("\n");
 
         builder.append("public interface ");
@@ -151,15 +153,21 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
      * 拼接Activity/Fragment的内容
      */
     private String buildActivityOrFragmentContent() {
-        String sPackage = Constant.getProjectPackage() + "." + Constant.getViewPackage() + "." + subViewPackage;
+        String tmp;
+        if (subViewPackage == null || subViewPackage.length() <= 0) tmp = "";
+        else tmp = "." + subViewPackage;
+        String sPackage = Constant.getProjectPackage() + "." + Constant.getViewPackage() + tmp;
 
         StringBuilder builder = new StringBuilder();
         builder.append(generatePackageCode(sPackage));
 
         builder.append("import android.os.Bundle;\n");
-        builder.append(generateImportCode(Constant.getCorelibsPackage(), fragment ? "BaseFragment" : "BaseActivity"));
-        builder.append(generateImportCode(Constant.getProjectPackage() + "." + Constant.getViewInterfacePackage(), fileName + TYPE_VIEW));
-        builder.append(generateImportCode(Constant.getProjectPackage() + "." + Constant.getPresenterPackage(), fileName + TYPE_PRESENTER));
+        builder.append(generateImportCode(Constant.getCorelibsPackage() + CORELIBS_BASE_PACKAGE,
+                fragment ? "BaseFragment" : "BaseActivity"));
+        builder.append(generateImportCode(Constant.getProjectPackage() + "." +
+                Constant.getViewInterfacePackage(), fileName + TYPE_VIEW));
+        builder.append(generateImportCode(Constant.getProjectPackage() + "." +
+                Constant.getPresenterPackage(), fileName + TYPE_PRESENTER));
         builder.append("\n");
 
         builder.append("public class ");
@@ -182,16 +190,19 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         builder.append(" {");
 
         builder.append("\n\n");
-        builder.append("    @Override protected int getLayoutId() {\n");
+        builder.append("    @Override\n");
+        builder.append("    protected int getLayoutId() {\n");
         builder.append("        return 0;");
         builder.append("\n    }\n");
 
         builder.append("\n");
-        builder.append("    @Override protected void init(Bundle savedInstanceState) {\n");
+        builder.append("    @Override\n");
+        builder.append("    protected void init(Bundle savedInstanceState) {\n");
         builder.append("\n    }\n");
 
         builder.append("\n");
-        builder.append("    @Override protected ");
+        builder.append("    @Override\n");
+        builder.append("    protected ");
         builder.append(fileName);
         builder.append(TYPE_PRESENTER);
         builder.append(" createPresenter() {\n");
@@ -203,11 +214,13 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
 
         if (paging) {
             builder.append("\n");
-            builder.append("    @Override public void onLoadingCompleted() {\n");
+            builder.append("    @Override\n");
+            builder.append("    public void onLoadingCompleted() {\n");
             builder.append("\n    }\n");
 
             builder.append("\n");
-            builder.append("    @Override public void onAllPageLoaded() {\n");
+            builder.append("    @Override\n");
+            builder.append("    public void onAllPageLoaded() {\n");
             builder.append("\n    }\n");
         }
 
@@ -224,15 +237,21 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
 
         StringBuilder builder = new StringBuilder();
         builder.append(generatePackageCode(sPackage));
-        builder.append(generateImportCode(Constant.getProjectPackage() + "." + Constant.getViewInterfacePackage(), fileName + TYPE_VIEW));
-        builder.append(generateImportCode(Constant.getCorelibsPackage(), paging ? "BasePaginationPresenter" : "BasePresenter"));
+        builder.append(generateImportCode(Constant.getProjectPackage() + "." +
+                Constant.getViewInterfacePackage(), fileName + TYPE_VIEW));
+        if (paging)
+            builder.append(generateImportCode(Constant.getCorelibsPackage() + ".pagination.presenter",
+                    "PagePresenter"));
+        else
+            builder.append(generateImportCode(Constant.getCorelibsPackage() + CORELIBS_BASE_PACKAGE,
+                    "BasePresenter"));
         builder.append("\n");
 
         builder.append("public class ");
         builder.append(fileName);
         builder.append(TYPE_PRESENTER);
         if (paging)
-            builder.append(" extends BasePaginationPresenter<");
+            builder.append(" extends PagePresenter<");
         else
             builder.append(" extends BasePresenter<");
         builder.append(fileName);
@@ -240,7 +259,8 @@ public class GeneratorWriter extends WriteCommandAction.Simple {
         builder.append("> {\n");
 
         builder.append("\n");
-        builder.append("    @Override public void onStart() {\n");
+        builder.append("    @Override\n");
+        builder.append("    public void onStart() {\n");
         builder.append("\n    }\n");
 
         builder.append("}");

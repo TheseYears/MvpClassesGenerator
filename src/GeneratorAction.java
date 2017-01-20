@@ -60,7 +60,7 @@ public class GeneratorAction extends AnAction {
                             PropertiesComponent.getInstance().setValue(Settings.PROJECT_PACKAGE, packageName);
 
                             String sub = subPackageField.getText().trim();
-                            if (sub.length() <= 0) return;
+//                            if (sub.length() <= 0) return;
                             PropertiesComponent.getInstance().setValue("sub", sub);
 
                             String name = classNameField.getText().trim();

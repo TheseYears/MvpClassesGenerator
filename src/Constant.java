@@ -6,7 +6,7 @@ import com.intellij.ide.util.PropertiesComponent;
  */
 public class Constant {
     public static final String DEFAULT_PROJECT_PACKAGE = "com.bm";
-    public static final String DEFAULT_CORELIBS_PACKAGE = "com.corelibs.base";
+    public static final String DEFAULT_CORELIBS_PACKAGE = "com.corelibs";
     public static final String DEFAULT_VIEW_PACKAGE = "view";
     public static final String DEFAULT_VIEW_INTERFACE_PACKAGE = "view.interfaces";
     public static final String DEFAULT_PRESENTER_PACKAGE = "presenter";
