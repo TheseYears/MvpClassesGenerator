@@ -1,6 +1,9 @@
+package com.ryan;
+
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
+import com.ryan.Constant;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 

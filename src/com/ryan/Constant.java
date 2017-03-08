@@ -1,3 +1,5 @@
+package com.ryan;
+
 import com.intellij.ide.util.PropertiesComponent;
 
 /**

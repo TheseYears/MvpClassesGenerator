@@ -36,7 +36,7 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="MvpClassesGenerator.GeneratorAction" class="GeneratorAction" text="Generator Mvp Classes"
+    <action id="MvpClassesGenerator.com.ryan.GeneratorAction" class="com.ryan.GeneratorAction" text="Generator Mvp Classes"
             description="Generator the Mvp Classes for Corelibs">
       <add-to-group group-id="EditMenu" anchor="first"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl G"/>
@@ -44,7 +44,7 @@
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
-    <applicationConfigurable instance="Settings" />
+    <applicationConfigurable instance="com.ryan.Settings" />
   </extensions>
 
 </idea-plugin>
